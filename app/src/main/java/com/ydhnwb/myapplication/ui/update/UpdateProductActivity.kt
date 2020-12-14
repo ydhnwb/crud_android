@@ -56,8 +56,8 @@ class UpdateProductActivity : AppCompatActivity() {
     private fun getPassedId() {
         val product = vm.findById(intent.getIntExtra("id", 0))
         binding.content.nameEditText.setText(product.name)
-        binding.content.priceEditText.setText(product.price)
-        binding.content.qtyEditText.setText(product.qty)
+        binding.content.priceEditText.setText(product.price.toString())
+        binding.content.qtyEditText.setText(product.qty.toString())
         //date....
 
     }
