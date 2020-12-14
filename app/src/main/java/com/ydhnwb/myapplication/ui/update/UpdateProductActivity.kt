@@ -15,6 +15,7 @@ class UpdateProductActivity : AppCompatActivity() {
     private lateinit var binding : ActivityUpdateProductBinding
     private val vm : UpdateViewModel by viewModel()
     private var expiryDate : String? = null
+    private val dateFormatter = SimpleDateFormat("dd-MM-yyyy", Locale.US)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,20 +59,23 @@ class UpdateProductActivity : AppCompatActivity() {
         binding.content.nameEditText.setText(product.name)
         binding.content.priceEditText.setText(product.price.toString())
         binding.content.qtyEditText.setText(product.qty.toString())
-        //date....
+        binding.content.currentDateTextView.text = product.expiryDate
 
+    }
+
+    private fun setDateView(newDate : Date){
+        expiryDate = dateFormatter.format(newDate.time)
+        binding.content.currentDateTextView.text = expiryDate
     }
 
     private fun setupDatePicker() {
         val newCalendar: Calendar = Calendar.getInstance()
 
-        val dateFormatter = SimpleDateFormat("dd-MM-yyyy", Locale.US)
-
         val datePickerDialog = DatePickerDialog(
             this, { _, year, monthOfYear, dayOfMonth ->
                 val newDate: Calendar = Calendar.getInstance()
                 newDate.set(year, monthOfYear, dayOfMonth)
-                expiryDate = dateFormatter.format(newDate.time)
+                setDateView(newDate.time)
             },
             newCalendar.get(Calendar.YEAR),
             newCalendar.get(Calendar.MONTH),

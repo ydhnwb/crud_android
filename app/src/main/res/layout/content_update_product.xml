@@ -59,10 +59,18 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 
-        <DatePicker
+        <LinearLayout
+            android:paddingTop="@dimen/padding_16"
+            android:paddingBottom="@dimen/padding_16"
             android:id="@+id/product_exp_datePicker"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="56dp"/>
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/currentDateTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
 
         <com.google.android.material.button.MaterialButton
             android:layout_width="match_parent"
@@ -72,6 +80,7 @@
         <com.google.android.material.button.MaterialButton
             android:layout_width="match_parent"
             android:text="DELETE"
+            app:icon="@drawable/ic_baseline_delete_24"
             app:backgroundTint="@color/red"
             android:id="@+id/save_delete"
             android:layout_height="wrap_content"/>
