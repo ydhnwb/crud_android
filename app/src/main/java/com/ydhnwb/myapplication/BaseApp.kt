@@ -3,7 +3,9 @@ package com.ydhnwb.myapplication
 import android.app.Application
 import androidx.room.Room
 import com.ydhnwb.myapplication.data.database.AppDatabase
+import com.ydhnwb.myapplication.ui.create.ProductViewModel
 import com.ydhnwb.myapplication.ui.main.MainViewModel
+import com.ydhnwb.myapplication.ui.update.UpdateViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
@@ -30,6 +32,12 @@ val appDatabase = module {
 val viewModelModule = module {
     viewModel {
         MainViewModel(get())
+    }
+    viewModel {
+        ProductViewModel(get())
+    }
+    viewModel {
+        UpdateViewModel(get())
     }
 
 }
