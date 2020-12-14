@@ -42,6 +42,8 @@ class MainActivity : AppCompatActivity(), MainAdapterClick {
         vm.allProduct()
     }
 
+
+
     private fun setupRecycler(){
         binding.content.productRecyclerview.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)

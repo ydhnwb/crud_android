@@ -13,6 +13,8 @@ class ProductActivity : AppCompatActivity() {
     private lateinit var binding : ActivityProductBinding
     private val vm : ProductViewModel by viewModel()
     private var expiryDate : String? = null
+    private val dateFormatter = SimpleDateFormat("dd-MM-yyyy", Locale.US)
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,13 +27,22 @@ class ProductActivity : AppCompatActivity() {
     }
 
     private fun setupUI(){
+        val dateFormatter = SimpleDateFormat("dd-MM-yyyy", Locale.US)
+        val date = dateFormatter.format(Calendar.getInstance().time).toString()
+        expiryDate = date
+        binding.content.currentDateTextView.text = expiryDate
+
         binding.content.productExpDatePicker.setOnClickListener {
             setupDatePicker()
         }
     }
 
+    private fun setDateView(newDate : Date){
+        expiryDate = dateFormatter.format(newDate.time)
+        binding.content.currentDateTextView.text = expiryDate
+    }
+
     private fun doSave(){
-        val dateFormatter = SimpleDateFormat("dd-MM-yyyy", Locale.US)
         binding.content.saveButton.setOnClickListener {
             val name = binding.content.nameEditText.text.toString().trim()
             val price : Int = binding.content.priceEditText.text.toString().toIntOrNull() ?: 0
@@ -44,14 +55,11 @@ class ProductActivity : AppCompatActivity() {
 
     private fun setupDatePicker() {
         val newCalendar: Calendar = Calendar.getInstance()
-
-        val dateFormatter = SimpleDateFormat("dd-MM-yyyy", Locale.US)
-
         val datePickerDialog = DatePickerDialog(
             this, { _, year, monthOfYear, dayOfMonth ->
                 val newDate: Calendar = Calendar.getInstance()
                 newDate.set(year, monthOfYear, dayOfMonth)
-                expiryDate = dateFormatter.format(newDate.time)
+                setDateView(newDate.time)
             },
             newCalendar.get(Calendar.YEAR),
             newCalendar.get(Calendar.MONTH),
