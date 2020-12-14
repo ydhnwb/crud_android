@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.ydhnwb.myapplication.R
 import com.ydhnwb.myapplication.data.Product
 import com.ydhnwb.myapplication.databinding.ActivityMainBinding
@@ -22,6 +23,7 @@ class MainActivity : AppCompatActivity(), MainAdapterClick {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
+        setupRecycler()
         observe()
 
 
@@ -38,6 +40,13 @@ class MainActivity : AppCompatActivity(), MainAdapterClick {
     override fun onResume() {
         super.onResume()
         vm.allProduct()
+    }
+
+    private fun setupRecycler(){
+        binding.content.productRecyclerview.apply {
+            layoutManager = LinearLayoutManager(this@MainActivity)
+            adapter = MainAdapter(mutableListOf(), this@MainActivity)
+        }
     }
 
     private fun observe() {
